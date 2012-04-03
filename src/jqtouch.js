@@ -149,7 +149,7 @@
                 warn('Converting click event to a tap event because touch handlers are not present or off');
                 $(e.target).trigger('tap', e);
             }
-
+            return true;
         }
         function doNavigation(fromPage, toPage, animation, goingBack) {
 
