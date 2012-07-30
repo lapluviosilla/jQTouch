@@ -135,7 +135,7 @@
             }
 
             // Prevent default if we found an internal link (relative or absolute)
-            if ($el && $el.attr('href') && !$el.isExternalLink()) {
+            if (!jQTSettings.handleRoutingAndHistory && $el && $el.attr('href') && !$el.isExternalLink()) {
                 warn('Need to prevent default click behavior');
                 e.preventDefault();
             } else {
@@ -221,12 +221,15 @@
             
             // Housekeeping
             $currentPage = toPage;
-            if (goingBack) {
-                history.shift();
-            } else {
-                addPageToHistory($currentPage, animation);
+
+            if (jQTSettings.handleRoutingAndHistory) {
+                if (goingBack) {
+                    history.shift();
+                } else {
+                    addPageToHistory($currentPage, animation);
+                }
+                setHash($currentPage.attr('id'));
             }
-            setHash($currentPage.attr('id'));
 
             // Private navigationEnd callback
             function navigationEndHandler(event) {
